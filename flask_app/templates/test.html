@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>pruebaa</h1>
+    <h3>El suceso id = {{suceso_id}} {{cant_si}} dssd {{cant_no}}</h3>
+    <h3>El suceso id = </h3>
+
+    {%for x in cant_si%}
+        {% if suceso_id == x["suceso_id"] %}
+            <p>{{x["cantidad_si"]}}</p>
+        {% endif %}
+    {%endfor%}
+
+    {%for x in cant_no%}
+        {% if suceso_id == x["suceso_id"] %}
+            <p>{{x["cantidad_no"]}}</p>
+        {% endif %}
+    {%endfor%}
+        
+    
+</body>
+</html>

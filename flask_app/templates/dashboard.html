@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mostrar Avistamientos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <header class=" d-flex justify-content-between mb-5 mt-3">
+            <h1 >Avistamientos de OVNIS</h1>
+            <div >
+                <div><h2 class="d-flex justify-content-end">{{usuario.nombre}} {{usuario.apellido}}</h2></div>
+                <div class="d-flex justify-content-end"><a href="/logout" class=" btn btn-danger">Cerrar Sesión</a></div>
+                <div class="d-flex justify-content-end"><a href="/nuevo/suceso" class=" btn btn-success">Reportar Avistamiento</a></div>
+                <div class="d-flex justify-content-end"><a href="/test" class=" btn btn-success">TEST</a></div>
+            </div>
+        </header>
+        <div class="container">
+            <h3>Avistamientos Reportados</h3>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Lugar</th>
+                        <th>Fecha</th>
+                        <th>Autor</th>
+                        <th>Creyentes</th>
+                        <th>Escepticos</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <!-- condicional for para recorrer todos los avistamientos -->
+                <tbody>
+                    {%for suceso in sucesos%}
+                <tr>
+                    <td>{{suceso.lugar}}</td>
+                    <td>{{suceso.fecha}}</td>
+                    <td>{{suceso.nombre_usuario}}</td>
+                    <td>
+                        {%for x in cant_si%}
+                            {% if suceso.id == x["suceso_id"] %}
+                                {{x["cantidad_si"]}}
+                            {% endif %}
+                        {%endfor%}
+                    </td>
+                    <td>
+                        {%for x in cant_no%}
+                            {% if suceso.id == x["suceso_id"] %}
+                                <p>{{x["cantidad_no"]}}</p>
+                            {% endif %}
+                        {%endfor%}
+                    </td>
+                    <td>
+                        <a href="/mostrar/suceso/{{suceso.id}}" class="btn btn-info">Ver</a>
+                        {%if suceso.usuario_id == session['usuario_id'] %}
+                            <a href="/editar/suceso/{{suceso.id}}" class="btn btn-warning">Editar</a>   
+                            <a href="/borrar/suceso/{{suceso.id}}" class="btn btn-danger">Borrar</a>
+                        {%endif%}   
+                    </td>
+                </tr>
+                {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
